@@ -13,7 +13,8 @@
   "keywords": [
     "karma-plugin",
     "commonjs-require-definition",
-    "brunch"
+    "brunch",
+    "commonjs"
   ],
   "dependencies": {
     "commonjs-require-definition": "~0.1.0"
