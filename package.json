@@ -1,0 +1,26 @@
+{
+  "name": "karma-commonjs-require",
+  "version": "0.0.1",
+  "description": "Karma plugin to achive require method from commonjs-require-definition package used in brunch projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+   "repository": {
+    "type": "git",
+    "url": "git://github.com/geksilla/karma-commonjs-require.git"
+  },
+  "keywords": [
+    "karma-plugin",
+    "commonjs-require-definition",
+    "brunch"
+  ],
+  "dependencies": {
+    "commonjs-require-definition": "~0.1.0"
+  },
+  "peerDependencies": {
+    "karma": ">=0.9"
+  },
+  "author": "geksilla",
+  "license": "MIT"
+}
