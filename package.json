@@ -1,6 +1,6 @@
 {
   "name": "karma-commonjs-require",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Karma plugin to achive require method from commonjs-require-definition package used in brunch projects.",
   "main": "index.js",
   "scripts": {
