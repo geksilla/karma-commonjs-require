@@ -1,3 +1,5 @@
+var path = require('path');
+
 /**
   Config
     @param appDir {String} - application root directory name of this directory will be removed while create path to module
@@ -20,8 +22,20 @@ var createCommonRequirePreprocessor = function(args, logger, config, basePath) {
   }
 };
 
-createCommonRequirePreprocessor.$inject = ['args', 'logger', 'config.commonRequirePreprocessor', 'config.basePath']
+var createPattern = function(path) {
+  return {pattern: path, included: true, served: true, watched: false};
+};
+
+var initCommonRequire = function(files) {
+  files.unshift(createPattern(__dirname + '/node_modules/commonjs-require-definition/require.js'));
+}
+
+
+
+createCommonRequirePreprocessor.$inject = ['args', 'logger', 'config.commonRequirePreprocessor', 'config.basePath'];
+initCommonRequire.$inject = ['config.files'];
 
 module.exports = {
-  'preprocessor:common-require': ['factory', createCommonRequirePreprocessor],
+  'framework:common-require': ['factory', initCommonRequire],
+  'preprocessor:common-require': ['factory', createCommonRequirePreprocessor]
 }
