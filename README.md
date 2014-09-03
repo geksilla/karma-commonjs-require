@@ -1,7 +1,7 @@
 karma-commonjs-require
 ===
 
-Used for testing project that builded by [Brunch](http://brunch.io/) build tool which uses [Common.js require](https://github.com/brunch/commonjs-require-definition). Generally it useful when you want to generate [coverage](https://github.com/karma-runner/karma-coverage) for source files.
+Used for testing projects build with [Brunch](http://brunch.io/) build tool which uses [Common.js require](https://github.com/brunch/commonjs-require-definition). It is useful to generate [coverage](https://github.com/karma-runner/karma-coverage) for source files.
 
 Configuration
 ---
@@ -21,12 +21,12 @@ Configuration
           'karma-commonjs-require'
         ],
 
-    // add to framework list
+    // add to frameworks list
     frameworks: ['mocha', 'common-require'],
 
-    // You can define custom application root directory, by default is 'app'
+    // You can define custom application root directories, defaults to ['app']
     commonRequirePreprocessor: {
-      appDir: 'app'
+      appDirs: ['app', 'vendor/assets/javascripts']
     },
 
     preprocessors: {
