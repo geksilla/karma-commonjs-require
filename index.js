@@ -2,15 +2,16 @@ var path = require('path');
 
 /**
   Config
-    @param appDir {String} - application root directory name of this directory will be removed while create path to module
+    @param appDirs {Array} - application root directories
+        those directories will be removed while creating path to module
 */
 
 var createCommonRequirePreprocessor = function(args, logger, config, basePath) {
-  var log  = logger.create('preprocessor:common-require');
-  var appDir = config.appDir || 'app';
+  var log     = logger.create('preprocessor:common-require');
+  var appDirs = config.appDirs || ['app'];
   return function(content, file, done) {
-    var processed = null;
-    var modulePath = file.path.replace(basePath, '').replace(new RegExp("\/" + appDir + "\/"), "").replace(/^\//, '').replace(/\..+$/, '');
+    var processed  = null;
+    var modulePath = generateModulePath(file.path, basePath, appDirs)
     log.debug('Processing %s register module "%s"', file.path, modulePath);
     try {
       processed = ";require.register(\""+ modulePath +"\", function(exports, require, module){\n" + content + "\n})";
@@ -22,6 +23,17 @@ var createCommonRequirePreprocessor = function(args, logger, config, basePath) {
   }
 };
 
+var generateModulePath = function(filePath, basePath, appDirs){
+  var res = filePath.replace(basePath, '')
+  // will only remove one of appDirs strings,
+  // since the starting "/"-char will be gone then
+  for(i=0; i < appDirs.length; i++){
+    res = res.replace(new RegExp("\/" + appDirs[i] + "\/"), "")
+  }
+  res = res.replace(/^\//, '').replace(/\..+$/, '');
+  return res
+}
+
 var createPattern = function(path) {
   return {pattern: path, included: true, served: true, watched: false};
 };
@@ -31,11 +43,10 @@ var initCommonRequire = function(files) {
 }
 
 
-
 createCommonRequirePreprocessor.$inject = ['args', 'logger', 'config.commonRequirePreprocessor', 'config.basePath'];
-initCommonRequire.$inject = ['config.files'];
+initCommonRequire.$inject               = ['config.files'];
 
 module.exports = {
-  'framework:common-require': ['factory', initCommonRequire],
+  'framework:common-require':    ['factory', initCommonRequire],
   'preprocessor:common-require': ['factory', createCommonRequirePreprocessor]
 }
